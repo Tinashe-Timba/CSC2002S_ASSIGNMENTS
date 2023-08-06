@@ -16,7 +16,7 @@ import java.util.concurrent.RecursiveTask;
 class MonteCarloMinimizationParallel extends RecursiveTask<Integer>{
 
 	//provisional cutoff
-	static final int SEQUENTIAL_CUTOFF=100000;
+	static final int SEQUENTIAL_CUTOFF=1000;
 	int hi;
 	int lo;
 	TerrainArea terrain;
@@ -43,6 +43,7 @@ class MonteCarloMinimizationParallel extends RecursiveTask<Integer>{
 				if((!searches[i].isStopped())&&(local_min<min)) { //don't look at  those who stopped because hit exisiting path
 					min=local_min;
 					finder=i; //keep track of who found it
+				
 					
 				}
 				return min;

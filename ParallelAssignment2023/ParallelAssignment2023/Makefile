@@ -6,7 +6,7 @@ BINDIR=bin
 
 
 $(BINDIR)/MonteCarloMini/%.class:$(SRCDIR)/%.java
-	$(JAVAC) -d $(BINDIR)/ -cp $(BINDIR) -sourcepath $ (SRCDIR) $<
+	$(JAVAC) -d $(BINDIR)/ -cp $(BINDIR) -sourcepath $(SRCDIR) $<
 
 
 CLASSES=  TerrainArea.class Search.class MonteCarloMinimization.class MonteCarloMinimizationParallel.class
@@ -15,7 +15,8 @@ CLASS_FILES=$(CLASSES:%.class=$(BINDIR)/MonteCarloMini/%.class)
 default: $(CLASS_FILES)
 
 clean:
-	rm -f $(BINDIR)/MonteCarloMini/*.class
+	rm  $(BINDIR)/MonteCarloMini/*.class
 
 run: $(CLASS_FILES)
-	java -cp $(BINDIR)/MonteCarloMini/MonteCarloMinimizationParallel 100 100 50 50 60 70 100
+	java -cp $(BINDIR) MonteCarloMini.MonteCarloMinimizationParallel 800 700 -250 89 50 -44 1
+	java -cp $(BINDIR) MonteCarloMini.MonteCarloMinimization 800 700 -250 89 50 -44 1
