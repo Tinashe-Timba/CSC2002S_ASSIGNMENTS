@@ -53,14 +53,13 @@ class MonteCarloMinimizationParallel extends RecursiveTask<Result>{
 				local_min=searches[i].find_valleys();
 				if((!searches[i].isStopped())&&(local_min<min)) { //don't look at  those who stopped because hit exisiting path
 					min=local_min;
-					finder=i; //keep track of who found it
-				
-					
+					finder=i; //keep track of who found it	
 				}
-				 minfind=new Result(min,finder);//
-				return minfind ;
+				 //
+				minfind=new Result(min,finder);
 				//if(DEBUG) System.out.println("Search "+searches[i].getID()+" finished at  "+local_min + " in " +searches[i].getSteps());
 			}	
+			return minfind ;
 	}
 
 else {
@@ -72,7 +71,7 @@ Result leftmin= left.join();
 if (rightmin.min>leftmin.min) {return leftmin;}
 else {return rightmin;}
 }
-return minfind;
+
 }
 
 	static final boolean DEBUG=false;
@@ -126,11 +125,11 @@ return minfind;
     	terrain = new TerrainArea(rows, columns, xmin,xmax,ymin,ymax);
     	num_searches = (int)( rows * columns * searches_density );
 		//Varying the cuttoff
-		//SEQUENTIAL_CUTOFF=num_searches/1000;
-		if (num_searches>600*600){
+		SEQUENTIAL_CUTOFF=num_searches/10000;
+		/*if (num_searches>600*600){
 		SEQUENTIAL_CUTOFF=num_searches/1000;}
 		else if (num_searches>100*100){SEQUENTIAL_CUTOFF=num_searches/300;}
-		else{SEQUENTIAL_CUTOFF=100;}
+		else{SEQUENTIAL_CUTOFF=100;}*/
 
     	searches= new Search [num_searches];
     	for (int i=0;i<num_searches;i++) 
