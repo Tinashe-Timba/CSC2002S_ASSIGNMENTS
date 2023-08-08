@@ -12,17 +12,28 @@ import java.util.concurrent.ForkJoinPool;
 //import java.util.concurrent.RecursiveAction;
 import java.util.concurrent.RecursiveTask;
 
+class Result{
+	int min,find;
+	 
+	Result(int min, int find){
+		this.min=min;
+		this.find=find;
+	}
+}
 
-class MonteCarloMinimizationParallel extends RecursiveTask<Integer>{
+class MonteCarloMinimizationParallel extends RecursiveTask<Result>{
+
+
 
 	//provisional cutoff
-	static final int SEQUENTIAL_CUTOFF=1000;
+	static int SEQUENTIAL_CUTOFF;
 	int hi;
 	int lo;
 	TerrainArea terrain;
 	Search [] searches;
 	//variables for search algorithm
 	int min=Integer.MAX_VALUE;
+	Result minfind;
     	int local_min=Integer.MAX_VALUE;
     	static int finder =-1;
 
@@ -36,7 +47,7 @@ class MonteCarloMinimizationParallel extends RecursiveTask<Integer>{
 
 	}
 
-	protected Integer compute(){
+	protected Result compute(){
 		if ((hi-lo)<SEQUENTIAL_CUTOFF){
 			for  (int i=lo;i<hi;i++) {
 				local_min=searches[i].find_valleys();
@@ -46,7 +57,8 @@ class MonteCarloMinimizationParallel extends RecursiveTask<Integer>{
 				
 					
 				}
-				return min;
+				 minfind=new Result(min,finder);//
+				return minfind ;
 				//if(DEBUG) System.out.println("Search "+searches[i].getID()+" finished at  "+local_min + " in " +searches[i].getSteps());
 			}	
 	}
@@ -55,12 +67,12 @@ else {
 MonteCarloMinimizationParallel left = new MonteCarloMinimizationParallel(lo,(hi+lo)/2,terrain,searches);
 MonteCarloMinimizationParallel right = new MonteCarloMinimizationParallel((hi+lo)/2,hi,terrain,searches);
 left.fork();
-int  rightmin= right.compute();
-int leftmin= left.join();
-if (rightmin>leftmin) {return leftmin;}
+Result  rightmin= right.compute();
+Result leftmin= left.join();
+if (rightmin.min>leftmin.min) {return leftmin;}
 else {return rightmin;}
 }
-return min;
+return minfind;
 }
 
 	static final boolean DEBUG=false;
@@ -113,6 +125,13 @@ return min;
     	// Initialize 
     	terrain = new TerrainArea(rows, columns, xmin,xmax,ymin,ymax);
     	num_searches = (int)( rows * columns * searches_density );
+		//Varying the cuttoff
+		//SEQUENTIAL_CUTOFF=num_searches/1000;
+		if (num_searches>600*600){
+		SEQUENTIAL_CUTOFF=num_searches/1000;}
+		else if (num_searches>100*100){SEQUENTIAL_CUTOFF=num_searches/300;}
+		else{SEQUENTIAL_CUTOFF=100;}
+
     	searches= new Search [num_searches];
     	for (int i=0;i<num_searches;i++) 
     		searches[i]=new Search(i+1, rand.nextInt(rows),rand.nextInt(columns),terrain);
@@ -130,7 +149,7 @@ return min;
     	//TFORK JOIN IMPLENTATION BEGINS HERE 
 		MonteCarloMinimizationParallel monte = new MonteCarloMinimizationParallel(0,num_searches,terrain,searches);
 		ForkJoinPool pool = new ForkJoinPool();
-		int min=pool.invoke(monte);
+		Result res=pool.invoke(monte);
 
    		//end timer
    		tock();
@@ -154,7 +173,7 @@ return min;
 		System.out.printf("Grid points evaluated: %d  (%2.0f%s)\n",tmp,(tmp/(rows*columns*1.0))*100.0, "%");
 	
 		/* Results*/
-		System.out.printf("Global minimum: %d at x=%.1f y=%.1f\n\n", min, terrain.getXcoord(searches[finder].getPos_row()), terrain.getYcoord(searches[monte.finder].getPos_col()) );
+		System.out.printf("Global minimum: %d at x=%.1f y=%.1f\n\n", res.min, terrain.getXcoord(searches[res.find].getPos_row()), terrain.getYcoord(searches[res.find].getPos_col()) );
 				
     	
     }
