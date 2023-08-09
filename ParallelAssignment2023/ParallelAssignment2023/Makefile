@@ -18,5 +18,6 @@ clean:
 	rm  $(BINDIR)/MonteCarloMini/*.class
 
 run: $(CLASS_FILES)
-	java -cp $(BINDIR) MonteCarloMini.MonteCarloMinimization  $(ARGS)
+	
 	java -cp $(BINDIR) MonteCarloMini.MonteCarloMinimizationParallel  $(ARGS)
+	

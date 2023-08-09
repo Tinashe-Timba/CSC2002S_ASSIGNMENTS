@@ -125,7 +125,7 @@ else {return rightmin;}
     	terrain = new TerrainArea(rows, columns, xmin,xmax,ymin,ymax);
     	num_searches = (int)( rows * columns * searches_density );
 		//Varying the cuttoff
-		SEQUENTIAL_CUTOFF=num_searches/10000;
+		SEQUENTIAL_CUTOFF=10000;
 		/*if (num_searches>600*600){
 		SEQUENTIAL_CUTOFF=num_searches/1000;}
 		else if (num_searches>100*100){SEQUENTIAL_CUTOFF=num_searches/300;}
