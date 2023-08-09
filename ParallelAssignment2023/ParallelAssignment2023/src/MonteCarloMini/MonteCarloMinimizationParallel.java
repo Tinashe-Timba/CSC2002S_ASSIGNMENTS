@@ -178,8 +178,8 @@ else {return rightmin;}
 		//System.out.println("Time: %d ms\n",endTime - startTime);		
     	//System.out.printf("Time: %d ms\n",endTime - startTime );
 		try {
-			FileWriter fileWriter = new FileWriter("Parallel/data/varyingSearchesSerial.txt", true);
-			String fstring = String.format(" %d %d %f %f\n", searches_density, num_searches, endTime-startTime,res.min);
+			FileWriter fileWriter = new FileWriter("data/varyingSearchesSerial.txt", true);
+			String fstring = String.format(" %f %d %d %d\n", searches_density, num_searches, endTime-startTime,res.min);
 			fileWriter.append(fstring);
 			fileWriter.close();
 		}

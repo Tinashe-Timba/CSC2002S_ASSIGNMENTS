@@ -109,10 +109,10 @@ class MonteCarloMinimization{
 	
 		/* Results*/
 		//System.out.printf("Global minimum: %d at x=%.1f y=%.1f\n\n", min, terrain.getXcoord(searches[finder].getPos_row()), terrain.getYcoord(searches[finder].getPos_col()) );
-		System.out.printf("Time: %d ms\n",endTime - startTime );
+		//System.out.printf("Time: %d ms\n",endTime - startTime );
 		try {
-			FileWriter fileWriter = new FileWriter("Parallel/data/varyingSearchesSerial.txt", true);
-			String fstring = String.format("%d %d %f %f\n",  searches_density, num_searches, endTime-startTime, min);
+			FileWriter fileWriter = new FileWriter("data/varyingSearchesSerial.txt", true);
+			String fstring = String.format("%f %d %d %d\n", searches_density, num_searches, endTime-startTime, min);
 			fileWriter.append(fstring);
 			fileWriter.close();
 		}
