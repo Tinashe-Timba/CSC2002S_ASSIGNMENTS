@@ -159,21 +159,21 @@ else {return rightmin;}
     		terrain.print_visited();
     	}
     	
-		System.out.printf("Run parameters\n");
+		/*System.out.printf("Run parameters\n");
 		System.out.printf("\t Rows: %d, Columns: %d\n", rows, columns);
 		System.out.printf("\t x: [%f, %f], y: [%f, %f]\n", xmin, xmax, ymin, ymax );
-		System.out.printf("\t Search density: %f (%d searches)\n", searches_density,num_searches );
+		System.out.printf("\t Search density: %f (%d searches)\n", searches_density,num_searches );*/
 
 		/*  Total computation time */
-		System.out.printf("Time: %d ms\n",endTime - startTime );
+		/*System.out.printf("Time: %d ms\n",endTime - startTime );
 		int tmp=terrain.getGrid_points_visited();
 		System.out.printf("Grid points visited: %d  (%2.0f%s)\n",tmp,(tmp/(rows*columns*1.0))*100.0, "%");
 		tmp=terrain.getGrid_points_evaluated();
 		System.out.printf("Grid points evaluated: %d  (%2.0f%s)\n",tmp,(tmp/(rows*columns*1.0))*100.0, "%");
 	
 		/* Results*/
-		System.out.printf("Global minimum: %d at x=%.1f y=%.1f\n\n", res.min, terrain.getXcoord(searches[res.find].getPos_row()), terrain.getYcoord(searches[res.find].getPos_col()) );
-				
-    	
+		//System.out.printf("Global minimum: %d at x=%.1f y=%.1f\n\n", res.min, terrain.getXcoord(searches[res.find].getPos_row()), terrain.getYcoord(searches[res.find].getPos_col()) );
+		//System.out.println("Time: %d ms\n",endTime - startTime);		
+    	System.out.printf("Time: %d ms\n",endTime - startTime );
     }
 }
