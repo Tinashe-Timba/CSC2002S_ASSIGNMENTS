@@ -1,4 +1,6 @@
 package MonteCarloMini;
+import java.io.FileWriter;
+import java.io.IOException;
 /* Serial  program to use Monte Carlo method to 
  * locate a minimum in a function
  * This is the reference sequential version (Do not modify this code)
@@ -108,6 +110,16 @@ class MonteCarloMinimization{
 		/* Results*/
 		//System.out.printf("Global minimum: %d at x=%.1f y=%.1f\n\n", min, terrain.getXcoord(searches[finder].getPos_row()), terrain.getYcoord(searches[finder].getPos_col()) );
 		System.out.printf("Time: %d ms\n",endTime - startTime );
+		try {
+			FileWriter fileWriter = new FileWriter("Parallel/data/varyingSearchesSerial.txt", true);
+			String fstring = String.format("%d %d %f %f\n",  searches_density, num_searches, endTime-startTime, min);
+			fileWriter.append(fstring);
+			fileWriter.close();
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
     	
     }
 }
