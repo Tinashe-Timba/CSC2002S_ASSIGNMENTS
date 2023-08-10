@@ -1,0 +1,13 @@
+
+# Monte Carlo MinimizationParallel Program
+
+This program uses the Monte Carlo method  using a parallel approach to locate a minimum in a function.
+
+1. Clean the bin:`make clean`
+2. Change directory: `cd ParallelAssignment2023`
+3. Compile the Java program: `make`
+4. Run the program: `make run ARGS="rows columns xmin, xmax ymin ymax searches_density"`
+
+## Example
+
+- To run the program with example arguments: `make run ARGS="1000 1000 -10 10 -5 50 1"`

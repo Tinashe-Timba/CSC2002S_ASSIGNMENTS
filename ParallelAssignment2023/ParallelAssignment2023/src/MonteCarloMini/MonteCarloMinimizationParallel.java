@@ -30,7 +30,7 @@ class MonteCarloMinimizationParallel extends RecursiveTask<Result>{
 	int hi;
 	int lo;
 	TerrainArea terrain;
-	Search [] searches;
+	SearchParallel [] searches;
 	//variables for search algorithm
 	int min=Integer.MAX_VALUE;
 	Result minfind;
@@ -38,7 +38,7 @@ class MonteCarloMinimizationParallel extends RecursiveTask<Result>{
     	static int finder =-1;
 
 // object takes in the determined number of searches and sets 
-	MonteCarloMinimizationParallel(int low,int nsearches,TerrainArea t,Search [] arr ){
+	MonteCarloMinimizationParallel(int low,int nsearches,TerrainArea t,SearchParallel [] arr ){
 		hi = nsearches;
 		lo=low;
 		terrain =t;
@@ -95,7 +95,7 @@ else {return rightmin;}
     	double searches_density;	// Density - number of Monte Carlo  searches per grid position - usually less than 1!
 
      	int num_searches;		// Number of searches
-    	Search [] searches;		// Array of searches
+    	SearchParallel [] searches;		// Array of searches
     	Random rand = new Random();  //the random number generator
     	
     	
@@ -131,9 +131,9 @@ else {return rightmin;}
 		else if (num_searches>100*100){SEQUENTIAL_CUTOFF=num_searches/300;}
 		else{SEQUENTIAL_CUTOFF=100;}*/
 
-    	searches= new Search [num_searches];
+    	searches= new SearchParallel [num_searches];
     	for (int i=0;i<num_searches;i++) 
-    		searches[i]=new Search(i+1, rand.nextInt(rows),rand.nextInt(columns),terrain);
+    		searches[i]=new SearchParallel(i+1, rand.nextInt(rows),rand.nextInt(columns),terrain);
     	
       	if(DEBUG) {
     		/* Print initial values */
@@ -159,20 +159,20 @@ else {return rightmin;}
     		terrain.print_visited();
     	}
     	
-		/*System.out.printf("Run parameters\n");
+		System.out.printf("Run parameters\n");
 		System.out.printf("\t Rows: %d, Columns: %d\n", rows, columns);
 		System.out.printf("\t x: [%f, %f], y: [%f, %f]\n", xmin, xmax, ymin, ymax );
-		System.out.printf("\t Search density: %f (%d searches)\n", searches_density,num_searches );*/
+		System.out.printf("\t Search density: %f (%d searches)\n", searches_density,num_searches );
 
 		/*  Total computation time */
-		/*System.out.printf("Time: %d ms\n",endTime - startTime );
+		System.out.printf("Time: %d ms\n",endTime - startTime );
 		int tmp=terrain.getGrid_points_visited();
 		System.out.printf("Grid points visited: %d  (%2.0f%s)\n",tmp,(tmp/(rows*columns*1.0))*100.0, "%");
 		tmp=terrain.getGrid_points_evaluated();
 		System.out.printf("Grid points evaluated: %d  (%2.0f%s)\n",tmp,(tmp/(rows*columns*1.0))*100.0, "%");
 	
 		/* Results*/
-		//System.out.printf("Global minimum: %d at x=%.1f y=%.1f\n\n", res.min, terrain.getXcoord(searches[res.find].getPos_row()), terrain.getYcoord(searches[res.find].getPos_col()) );
+		System.out.printf("Global minimum: %d at x=%.1f y=%.1f\n\n", res.min, terrain.getXcoord(searches[res.find].getPos_row()), terrain.getYcoord(searches[res.find].getPos_col()) );
 		//System.out.println("Time: %d ms\n",endTime - startTime);		
     	System.out.printf("Time: %d ms\n",endTime - startTime );
     }
