@@ -12,6 +12,7 @@ import java.util.concurrent.ForkJoinPool;
 //import java.util.concurrent.RecursiveAction;
 import java.util.concurrent.RecursiveTask;
 
+//A class that alows an object that stores the min and finder variable
 class Result{
 	int min,find;
 	 
@@ -46,6 +47,7 @@ class MonteCarloMinimizationParallel extends RecursiveTask<Result>{
 
 
 	}
+	//Overwrite compute method
 
 	protected Result compute(){
 		if ((hi-lo)<SEQUENTIAL_CUTOFF){
@@ -61,7 +63,7 @@ class MonteCarloMinimizationParallel extends RecursiveTask<Result>{
 			}	
 			return minfind ;
 	}
-
+//Split the work
 else {
 MonteCarloMinimizationParallel left = new MonteCarloMinimizationParallel(lo,(hi+lo)/2,terrain,searches);
 MonteCarloMinimizationParallel right = new MonteCarloMinimizationParallel((hi+lo)/2,hi,terrain,searches);
@@ -126,6 +128,7 @@ else {return rightmin;}
     	num_searches = (int)( rows * columns * searches_density );
 		//Varying the cuttoff
 		SEQUENTIAL_CUTOFF=10000;
+
 		/*if (num_searches>600*600){
 		SEQUENTIAL_CUTOFF=num_searches/1000;}
 		else if (num_searches>100*100){SEQUENTIAL_CUTOFF=num_searches/300;}
@@ -174,6 +177,6 @@ else {return rightmin;}
 		/* Results*/
 		System.out.printf("Global minimum: %d at x=%.1f y=%.1f\n\n", res.min, terrain.getXcoord(searches[res.find].getPos_row()), terrain.getYcoord(searches[res.find].getPos_col()) );
 		//System.out.println("Time: %d ms\n",endTime - startTime);		
-    	System.out.printf("Time: %d ms\n",endTime - startTime );
+    	//System.out.printf("Time: %d ms\n",endTime - startTime );
     }
 }

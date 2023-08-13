@@ -6,7 +6,7 @@ This program uses the Monte Carlo method  using a parallel approach to locate a 
 1. Clean the bin:`make clean`
 2. Change directory: `cd ParallelAssignment2023`
 3. Compile the Java program: `make`
-4. Run the program: `make run ARGS="rows columns xmin, xmax ymin ymax searches_density"`
+4. Run the program: `make run ARGS="rows columns xmin xmax ymin ymax searches_density"`
 
 ## Example
 
