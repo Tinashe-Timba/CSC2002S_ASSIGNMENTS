@@ -14,23 +14,24 @@ public class PeopleCounter {
 		maxPeople=new AtomicInteger(max);
 	}
 		
-	public int getWaiting() {
+	//all getters and setters to be synchronized
+	public synchronized int getWaiting() {
 		return peopleOutSide.get();
 	}
 
-	public int getInside() {
+	public synchronized int getInside() {
 		return peopleInside.get();
 	}
 	
-	public int getTotal() {
+	public synchronized int getTotal() {
 		return (peopleOutSide.get()+peopleInside.get()+peopleLeft.get());
 	}
 
-	public int getLeft() {
+	public synchronized int getLeft() {
 		return peopleLeft.get();
 	}
 	
-	public int getMax() {
+	public synchronized int getMax() {
 		return maxPeople.get();
 	}
 	
@@ -39,11 +40,12 @@ public class PeopleCounter {
 		peopleOutSide.getAndIncrement();
 	}
 	
-	//someone got inside
+	//someone got inside//
 	synchronized public void personEntered() {
+		synchronized(this){
 		peopleOutSide.getAndDecrement();
 		peopleInside.getAndIncrement();
-	}
+	}}
 
 	//someone left
 	synchronized public void personLeft() {
@@ -51,12 +53,13 @@ public class PeopleCounter {
 		peopleLeft.getAndIncrement();
 		
 	}
-	//too many people inside
+	//too many people inside// check and write
 	synchronized public boolean overCapacity() {
+		synchronized(this){
 		if(peopleInside.get()>=maxPeople.get())
 			return true;
 		return false;
-	}
+	}}
 	
 	//not used
 	synchronized public void resetScore() {

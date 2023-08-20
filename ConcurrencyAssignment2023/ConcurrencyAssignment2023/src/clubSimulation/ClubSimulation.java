@@ -10,8 +10,10 @@ import java.awt.event.ActionListener;
 import java.util.Random;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.CountDownLatch;
 
 public class ClubSimulation {
+	static CountDownLatch latch;
 	static int noClubgoers=20;
    	static int frameX=400;
 	static int frameY=500;
@@ -31,6 +33,7 @@ public class ClubSimulation {
 	
 	private static int maxWait=1200; //for the slowest customer
 	private static int minWait=500; //for the fastest cutomer
+	static AtomicBoolean pause=new AtomicBoolean(false);
 
 	public static void setupGUI(int frameX,int frameY,int [] exits) {
 		// Frame initialize and dimensions
@@ -68,6 +71,9 @@ public class ClubSimulation {
 		// add the listener to the jbutton to handle the "pressed" event
 		startB.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e)  {
+				//latch implentation
+				
+				latch.countDown();
 			    	  	// THIS DOES NOTHING - MUST BE FIXED  	  
 		    }
 		   });
@@ -77,6 +83,17 @@ public class ClubSimulation {
 			// add the listener to the jbutton to handle the "pressed" event
 			pauseB.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent e) {
+				pause.set(!pause.get());
+				if (pause.get()==true){
+				  pauseB.setText("Resume");
+				  latch=new CountDownLatch(1);
+				  }
+				else{
+					 pauseB.setText("Pause");
+					latch.countDown();
+				}
+				  
+				
 		    		// THIS DOES NOTHING - MUST BE FIXED  	
 		      }
 		    });
@@ -133,8 +150,10 @@ public class ClubSimulation {
 		           
 		setupGUI(frameX, frameY,exit);  //Start Panel thread - for drawing animation
         //start all the threads
+		latch=new CountDownLatch(1);//hold on until button is press
 		Thread t = new Thread(clubView); 
       	t.start();
+		latch.await();
       	//Start counter thread - for updating counters
       	Thread s = new Thread(counterDisplay);  
       	s.start();

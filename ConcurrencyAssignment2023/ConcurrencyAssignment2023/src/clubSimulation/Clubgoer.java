@@ -21,6 +21,7 @@ public class Clubgoer extends Thread {
 	private boolean inRoom;
 	private boolean thirsty;
 	private boolean wantToLeave;
+	private AtomicBoolean pause;
 	
 	private int ID; //thread ID 
 
