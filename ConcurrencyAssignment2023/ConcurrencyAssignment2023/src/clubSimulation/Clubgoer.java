@@ -4,6 +4,7 @@ package clubSimulation;
 import java.util.Random;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.CountDownLatch;
 
 /*
  This is the basic ClubGoer Thread class, representing the patrons at the club
@@ -21,9 +22,14 @@ public class Clubgoer extends Thread {
 	private boolean inRoom;
 	private boolean thirsty;
 	private boolean wantToLeave;
-	private AtomicBoolean pause;
+	static CountDownLatch latch;
+	static AtomicBoolean pause=new AtomicBoolean(false);
+	static AtomicBoolean start= new AtomicBoolean(false);
+	
 	
 	private int ID; //thread ID 
+	static Object pauser1 = new Object();
+static Object starter = new Object();
 
 	
 	Clubgoer( int ID,  PeopleLocation loc,  int speed) {
@@ -34,6 +40,8 @@ public class Clubgoer extends Thread {
 		thirsty=true; //thirsty when arrive
 		wantToLeave=false;	 //want to stay when arrive
 		rand=new Random();
+		
+		
 	}
 	
 	//getter
@@ -42,28 +50,58 @@ public class Clubgoer extends Thread {
 	}
 	
 	//getter
-	public   int getX() { return currentBlock.getX();}	
+	public synchronized  int getX() { return currentBlock.getX();}	
 	
 	//getter
-	public   int getY() {	return currentBlock.getY();	}
+	public synchronized  int getY() {	return currentBlock.getY();	}
 	
 	//getter
-	public   int getSpeed() { return movingSpeed; }
+	public  synchronized int getSpeed() { return movingSpeed; }
 
 	//setter
 
 	//check to see if user pressed pause button
 	private void checkPause() {
-		// THIS DOES NOTHING - MUST BE FIXED  	
+		
+			while(pause.get()==true){
+			synchronized (pauser1) {
+				
+				try {	
+				pauser1.wait();
+			} catch (InterruptedException ex) {
+				ex.printStackTrace();
+			}
+			}
+			}
+	  synchronized (pauser1) {
+			pauser1.notifyAll();
+	  }
+		}
         
-    }
+   
 	private void startSim() {
-		// THIS DOES NOTHING - MUST BE FIXED  	
+
+		while(start.get()==false){
+			synchronized (starter) {
+				
+				try {	
+				starter.wait();
+			} catch (InterruptedException ex) {
+				ex.printStackTrace();
+			}
+			}
+		}}
+
+
+
+
+	
+	
         
-    }
+    
 	
 	//get drink at bar
-		private void getDrink() throws InterruptedException {
+		private synchronized void getDrink() throws InterruptedException {
 			//FIX SO BARMAN GIVES THE DRINK AND IT IS NOT AUTOMATIC
 			thirsty=false;
 			System.out.println("Thread "+this.ID + " got drink at bar position: " + currentBlock.getX()  + " " +currentBlock.getY() );
@@ -135,6 +173,7 @@ public class Clubgoer extends Thread {
 	
 	public void run() {
 		try {
+			
 			startSim(); 
 			checkPause();
 			sleep(movingSpeed*(rand.nextInt(100)+1)); //arriving takes a while

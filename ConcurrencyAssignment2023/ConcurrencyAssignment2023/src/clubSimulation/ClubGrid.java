@@ -9,6 +9,7 @@ public class ClubGrid {
 	private final int x;
 	private final int y;
 	public  final int bar_y;
+	static Object waits = new Object();
 	
 	private GridBlock exit;
 	private GridBlock entrance; //hard coded entrance
@@ -46,37 +47,49 @@ public class ClubGrid {
 		}
 	}
 	
-		public  int getMaxX() {
+		public  synchronized int getMaxX() {
 		return x;
 	}
 	
-		public int getMaxY() {
+		public synchronized int getMaxY() {
 		return y;
 	}
 
-	public GridBlock whereEntrance() { 
+	public synchronized GridBlock whereEntrance() { 
 		return entrance;
 	}
 
-	public  boolean inGrid(int i, int j) {
+	public  boolean inGrid(int i, int j) {synchronized(this){
 		if ((i>=x) || (j>=y) ||(i<0) || (j<0)) 
 			return false;
-		return true;
+		return true;}
 	}
 	
-	public  boolean inPatronArea(int i, int j) {
+	public  boolean inPatronArea(int i, int j) {synchronized(this){
 		if ((i>=x) || (j>bar_y) ||(i<0) || (j<0)) 
 			return false;
 		return true;
 	}
+	}
 	
 	public GridBlock enterClub(PeopleLocation myLocation) throws InterruptedException  {
+		synchronized(this){
 		counter.personArrived(); //add to counter of people waiting 
 		entrance.get(myLocation.getID());
+		while (counter.overCapacity()==true){
+			synchronized(entrance){
+			try {
+				entrance.wait();
+			} catch (Exception e) {
+				// TODO: handle exception
+			}}}
+			synchronized (entrance) {
+				entrance.notifyAll();
+		  }
 		counter.personEntered(); //add to counter
 		myLocation.setLocation(entrance);
 		myLocation.setInRoom(true);
-		return entrance;
+		return entrance;}
 	}
 	
 	
@@ -107,14 +120,17 @@ public class ClubGrid {
 	} 
 	
 
-	public  void leaveClub(GridBlock currentBlock,PeopleLocation myLocation)   {
+	public void leaveClub(GridBlock currentBlock,PeopleLocation myLocation)   {
+		synchronized(this){
 			currentBlock.release();
 			counter.personLeft(); //add to counter
 			myLocation.setInRoom(false);
-			entrance.notifyAll();
+			if (counter.overCapacity()==false){
+				synchronized(entrance){
+			entrance.notifyAll();}}}
 	}
 
-	public GridBlock getExit() {
+	public synchronized GridBlock getExit() {
 		return exit;
 	}
 
@@ -126,11 +142,11 @@ public class ClubGrid {
 		return null;
 	}
 	
-	public void setExit(GridBlock exit) {
+	public synchronized void setExit(GridBlock exit) {
 		this.exit = exit;
 	}
 
-	public int getBar_y() {
+	public synchronized int getBar_y() {
 		return bar_y;
 	}
 
