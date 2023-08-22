@@ -22,7 +22,7 @@ public class PeopleLocation  { // this is a separate class so don't have to acce
 	}
 	//all getters and setters are to be synchronized
 	
-	 public  void setInRoom(boolean in) {
+	 public  synchronized void setInRoom(boolean in) {
 		this.inRoom.set(in);
 	}
 	

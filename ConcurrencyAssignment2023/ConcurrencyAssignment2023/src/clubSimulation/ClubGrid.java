@@ -55,28 +55,29 @@ public class ClubGrid {
 		return y;
 	}
 
-	public synchronized GridBlock whereEntrance() { 
+	public  GridBlock whereEntrance() { 
 		return entrance;
 	}
 
-	public  boolean inGrid(int i, int j) {synchronized(this){
+	public  boolean inGrid(int i, int j) {
 		if ((i>=x) || (j>=y) ||(i<0) || (j<0)) 
-			return false;
-		return true;}
-	}
-	
-	public  boolean inPatronArea(int i, int j) {synchronized(this){
-		if ((i>=x) || (j>bar_y) ||(i<0) || (j<0)) 
 			return false;
 		return true;
 	}
+	
+	public  boolean inPatronArea(int i, int j) {
+		if ((i>=x) || (j>bar_y) ||(i<0) || (j<0)) 
+			return false;
+		return true;
+	
 	}
 	
-	public GridBlock enterClub(PeopleLocation myLocation) throws InterruptedException  {
-		synchronized(this){
+	 public GridBlock enterClub(PeopleLocation myLocation) throws InterruptedException  {
+		
+			
 		counter.personArrived(); //add to counter of people waiting 
-		entrance.get(myLocation.getID());
-		while (counter.overCapacity()==true){
+		
+		while (counter.overCapacity()==true||entrance.occupied()==true){
 			synchronized(entrance){
 			try {
 				entrance.wait();
@@ -84,12 +85,15 @@ public class ClubGrid {
 				// TODO: handle exception
 			}}}
 			synchronized (entrance) {
+				
 				entrance.notifyAll();
+				
 		  }
+		 entrance.get(myLocation.getID());
 		counter.personEntered(); //add to counter
 		myLocation.setLocation(entrance);
 		myLocation.setInRoom(true);
-		return entrance;}
+		return entrance;
 	}
 	
 	
@@ -121,20 +125,21 @@ public class ClubGrid {
 	
 
 	public void leaveClub(GridBlock currentBlock,PeopleLocation myLocation)   {
-		synchronized(this){
+		
 			currentBlock.release();
 			counter.personLeft(); //add to counter
 			myLocation.setInRoom(false);
 			if (counter.overCapacity()==false){
 				synchronized(entrance){
-			entrance.notifyAll();}}}
+			entrance.notifyAll();}}
 	}
 
-	public synchronized GridBlock getExit() {
+	public  GridBlock getExit() {
 		return exit;
 	}
 
 	public GridBlock whichBlock(int xPos, int yPos) {
+		
 		if (inGrid(xPos,yPos)) {
 			return Blocks[xPos][yPos];
 		}
@@ -142,11 +147,11 @@ public class ClubGrid {
 		return null;
 	}
 	
-	public synchronized void setExit(GridBlock exit) {
+	public void setExit(GridBlock exit) {
 		this.exit = exit;
 	}
 
-	public synchronized int getBar_y() {
+	public  int getBar_y() {
 		return bar_y;
 	}
 

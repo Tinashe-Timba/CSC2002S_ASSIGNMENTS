@@ -25,11 +25,12 @@ public class Clubgoer extends Thread {
 	static CountDownLatch latch;
 	static AtomicBoolean pause=new AtomicBoolean(false);
 	static AtomicBoolean start= new AtomicBoolean(false);
+	static Object pauser = new Object();
 	
 	
 	private int ID; //thread ID 
-	static Object pauser1 = new Object();
-static Object starter = new Object();
+	
+//static Object starter = new Object();
 
 	
 	Clubgoer( int ID,  PeopleLocation loc,  int speed) {
@@ -50,42 +51,39 @@ static Object starter = new Object();
 	}
 	
 	//getter
-	public synchronized  int getX() { return currentBlock.getX();}	
+	public  int getX() { return currentBlock.getX();}	
 	
 	//getter
-	public synchronized  int getY() {	return currentBlock.getY();	}
+	public int getY() {	return currentBlock.getY();	}
 	
 	//getter
-	public  synchronized int getSpeed() { return movingSpeed; }
+	public   int getSpeed() { return movingSpeed; }
 
 	//setter
 
 	//check to see if user pressed pause button
-	private void checkPause() {
-		
-			while(pause.get()==true){
-			synchronized (pauser1) {
+	private synchronized void checkPause() {
+			synchronized (pauser){
+			while(pause.get()){
+			 {
 				
 				try {	
-				pauser1.wait();
+				pauser.wait();
 			} catch (InterruptedException ex) {
 				ex.printStackTrace();
+			}}
 			}
-			}
-			}
-	  synchronized (pauser1) {
-			pauser1.notifyAll();
-	  }
+			
 		}
-        
+	}
    
 	private void startSim() {
 
-		while(start.get()==false){
-			synchronized (starter) {
+		if (start.get()==false){
+			synchronized (start) {
 				
 				try {	
-				starter.wait();
+				start.wait();
 			} catch (InterruptedException ex) {
 				ex.printStackTrace();
 			}
@@ -101,7 +99,7 @@ static Object starter = new Object();
     
 	
 	//get drink at bar
-		private synchronized void getDrink() throws InterruptedException {
+		private  void getDrink() throws InterruptedException {
 			//FIX SO BARMAN GIVES THE DRINK AND IT IS NOT AUTOMATIC
 			thirsty=false;
 			System.out.println("Thread "+this.ID + " got drink at bar position: " + currentBlock.getX()  + " " +currentBlock.getY() );

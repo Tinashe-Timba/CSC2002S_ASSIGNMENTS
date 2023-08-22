@@ -76,8 +76,8 @@ public class ClubSimulation {
 				//latch implentation
 				Clubgoer.start.set(!Clubgoer.start.get());
 			
-			synchronized (Clubgoer.starter) {
-				  Clubgoer.starter.notifyAll();
+			synchronized (Clubgoer.start) {
+				  Clubgoer.start.notifyAll();
 			}
 			    	  		  
 		    }
@@ -93,12 +93,16 @@ public class ClubSimulation {
 					if (Clubgoer.pause.get()==true){
                 pauseB.setText("Resume ");
 					}
-					else{pauseB.setText("Pause ");}
+					else{pauseB.setText("Pause ");
+				}
+				synchronized (Clubgoer.pauser) {
+					  Clubgoer.pauser.notifyAll();
+				}}
             
 				
 		    		// THIS DOES NOTHING - MUST BE FIXED  	
 		      }
-		    });
+		    );
 			
 		JButton endB = new JButton("Quit");
 				// add the listener to the jbutton to handle the "pressed" event
