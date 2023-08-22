@@ -94,10 +94,10 @@ public class ClubSimulation {
                 pauseB.setText("Resume ");
 					}
 					else{pauseB.setText("Pause ");
-				}
+				
 				synchronized (Clubgoer.pauser) {
 					  Clubgoer.pauser.notifyAll();
-				}}
+				}}}
             
 				
 		    		// THIS DOES NOTHING - MUST BE FIXED  	

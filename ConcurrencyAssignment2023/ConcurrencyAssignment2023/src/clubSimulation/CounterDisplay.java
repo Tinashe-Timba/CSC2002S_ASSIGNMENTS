@@ -5,6 +5,7 @@ import java.awt.Color;
 import javax.swing.JLabel;
 
 // Simple Thread class to update the display of a PeopleCounter object
+//no synchronization necessary
 
 public class CounterDisplay  implements Runnable {
 	

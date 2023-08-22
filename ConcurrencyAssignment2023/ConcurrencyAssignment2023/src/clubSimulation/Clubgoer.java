@@ -1,4 +1,5 @@
 //M. M. Kuttel 2023 mkuttel@gmail.com
+//Modified by TMBTIN004-Tinashe Timba
 package clubSimulation;
 
 import java.util.Random;
@@ -25,12 +26,12 @@ public class Clubgoer extends Thread {
 	static CountDownLatch latch;
 	static AtomicBoolean pause=new AtomicBoolean(false);
 	static AtomicBoolean start= new AtomicBoolean(false);
-	static Object pauser = new Object();
+	static Object pauser = new Object();// to avoid may access to pause boolean
 	
 	
 	private int ID; //thread ID 
 	
-//static Object starter = new Object();
+
 
 	
 	Clubgoer( int ID,  PeopleLocation loc,  int speed) {
@@ -78,7 +79,7 @@ public class Clubgoer extends Thread {
 	}
    
 	private void startSim() {
-
+// only one check is completed so that start has no further efffect on the simulation
 		if (start.get()==false){
 			synchronized (start) {
 				

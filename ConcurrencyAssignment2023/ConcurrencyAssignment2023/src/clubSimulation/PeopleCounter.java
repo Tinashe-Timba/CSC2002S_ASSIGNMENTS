@@ -1,4 +1,5 @@
 package clubSimulation;
+//Modified by TMBTIN004-Tinashe Timba
 import java.util.concurrent.atomic.*;
 
 public class PeopleCounter {

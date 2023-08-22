@@ -1,5 +1,6 @@
 //M. M. Kuttel 2023 mkuttel@gmail.com
 //Grid for the club
+//Modified by TMBTIN004-Tinashe Timba
 
 package clubSimulation;
 
@@ -46,6 +47,7 @@ public class ClubGrid {
 			}
 		}
 	}
+	 
 	
 		public  synchronized int getMaxX() {
 		return x;
