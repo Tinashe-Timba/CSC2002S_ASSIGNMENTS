@@ -1,4 +1,5 @@
 //M. M. Kuttel 2023 mkuttel@gmail.com
+//Modified by TMBTIN004-Tinashe Timba
 
 package clubSimulation;
 // the main class, starts all threads
@@ -74,10 +75,10 @@ public class ClubSimulation {
 		startB.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e)  {
 				//latch implentation
-				Clubgoer.start.set(!Clubgoer.start.get());
+				Clubgoer.start.set(!Clubgoer.start.get());//sets the start varibale to true
 			
 			synchronized (Clubgoer.start) {
-				  Clubgoer.start.notifyAll();
+				  Clubgoer.start.notifyAll(); // notifies threads to start
 			}
 			    	  		  
 		    }
@@ -89,18 +90,18 @@ public class ClubSimulation {
 			pauseB.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent e) {
 				
-            	Clubgoer.pause.set(!Clubgoer.pause.get());
+            	Clubgoer.pause.set(!Clubgoer.pause.get());// toggle pause whenever button is presses
 					if (Clubgoer.pause.get()==true){
-                pauseB.setText("Resume ");
+                pauseB.setText("Resume ");// set to resume when pause is true
 					}
 					else{pauseB.setText("Pause ");
 				
-				synchronized (Clubgoer.pauser) {
+				synchronized (Clubgoer.pauser) { // notify  threads that they can continue
 					  Clubgoer.pauser.notifyAll();
 				}}}
             
 				
-		    		// THIS DOES NOTHING - MUST BE FIXED  	
+		    			
 		      }
 		    );
 			
