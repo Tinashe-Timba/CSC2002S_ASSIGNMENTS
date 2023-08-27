@@ -20,39 +20,39 @@ public class PeopleLocation  { // this is a separate class so don't have to acce
 		arrived = new AtomicBoolean(false); //have not arrive outside
 		this.ID=ID;
 	}
-	//all getters and setters are to be synchronized
+	//Not a shared resource therfore no need to synchronize
 	
-	 public  synchronized void setInRoom(boolean in) {
+	 public  void setInRoom(boolean in) {
 		this.inRoom.set(in);
 	}
 	
 	//getter and setter
-	 public synchronized boolean getArrived() {
+	 public  boolean getArrived() {
 		return arrived.get();
 	}
-	 public synchronized void setArrived() {
+	 public  void setArrived() {
 		this.arrived.set(true);;
 	}
 
 //getter and setter
-	 public synchronized GridBlock getLocation() {
+	 public GridBlock getLocation() {
 		return location;
 	}
-	 public synchronized void setLocation(GridBlock location) {
+	 public  void setLocation(GridBlock location) {
 		this.location = location;
 	}
 
 	//getter
- public synchronized int getX() { return location.getX();}	
+ public int getX() { return location.getX();}	
 	
 	//getter
-	 public synchronized int getY() {	return location.getY();	}
+	 public int getY() {	return location.getY();	}
 	
 	//getter
-	 public synchronized  int getID() {	return ID;	}
+	 public  int getID() {	return ID;	}
 
 	//getter
-	public  synchronized boolean inRoom() {
+	public  boolean inRoom() {
 		return inRoom.get();
 	}
 	//getter and setter

@@ -26,7 +26,7 @@ public class Clubgoer extends Thread {
 	static CountDownLatch latch;
 	static AtomicBoolean pause=new AtomicBoolean(false);
 	static AtomicBoolean start= new AtomicBoolean(false);
-	static Object pauser = new Object();// to avoid may access to pause boolean
+	static Object pauser = new Object();// to avoid many access to pause boolean
 	
 	
 	private int ID; //thread ID 
@@ -65,7 +65,7 @@ public class Clubgoer extends Thread {
 	//check to see if user pressed pause button
 	private synchronized void checkPause() {
 			synchronized (pauser){
-			while(pause.get()){
+			while(pause.get()){ // get status of pause : while true then wait 
 			 {
 				
 				try {	
@@ -80,7 +80,7 @@ public class Clubgoer extends Thread {
    
 	private void startSim() {
 // only one check is completed so that start has no further efffect on the simulation
-		if (start.get()==false){
+		if (start.get()==false){ // if start is false then program will not start
 			synchronized (start) {
 				
 				try {	

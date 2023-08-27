@@ -79,18 +79,19 @@ public class ClubGrid {
 			
 		counter.personArrived(); //add to counter of people waiting 
 		
-		while (counter.overCapacity()==true||entrance.occupied()==true){
+		while (counter.overCapacity()==true||entrance.occupied()==true){ // checks if club is at capacity or if there is some one at the door
 			synchronized(entrance){
 			try {
-				entrance.wait();
+				entrance.wait(); // patron wait 
 			} catch (Exception e) {
 				// TODO: handle exception
 			}}}
+			/*if (entrance.occupied()==false){
 			synchronized (entrance) {
 				
 				entrance.notifyAll();
-				
-		  }
+			}
+		  }*/
 		 entrance.get(myLocation.getID());
 		counter.personEntered(); //add to counter
 		myLocation.setLocation(entrance);
@@ -100,7 +101,11 @@ public class ClubGrid {
 	
 	
 	public GridBlock move(GridBlock currentBlock,int step_x, int step_y,PeopleLocation myLocation) throws InterruptedException {  //try to move in 
-		
+		synchronized (entrance) { // if patron moves of the entrance then somone cen be let in 
+			if (entrance.occupied()==false){
+			
+				entrance.notifyAll();
+			}}
 		int c_x= currentBlock.getX();
 		int c_y= currentBlock.getY();
 		
@@ -131,6 +136,7 @@ public class ClubGrid {
 			currentBlock.release();
 			counter.personLeft(); //add to counter
 			myLocation.setInRoom(false);
+			// notify patrons if the club is no longer at capacity.
 			if (counter.overCapacity()==false){
 				synchronized(entrance){
 			entrance.notifyAll();}}

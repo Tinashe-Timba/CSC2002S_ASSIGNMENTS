@@ -15,7 +15,7 @@ public class PeopleCounter {
 		maxPeople=new AtomicInteger(max);
 	}
 		
-	//all getters and setters to be synchronized
+	//all getters and setters to be synchronized as it is a shared resource
 	public synchronized int getWaiting() {
 		return peopleOutSide.get();
 	}

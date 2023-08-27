@@ -28,6 +28,7 @@ public class ClubView extends JPanel implements Runnable {
 		    int height = getHeight();
 		    wIncr= width/(maxX+2); //1 space on either side
 		    hIncr= height/(maxY+2);//2 spaces on bottom
+			
 		}
 		
 		public void paintComponent(Graphics g) {
@@ -79,6 +80,7 @@ public class ClubView extends JPanel implements Runnable {
 			 g.setFont(new Font("Helvetica", Font.BOLD, hIncr/2));
 			 
 			 //barman should go here
+
 			 
 			 //patrons
 		    for (int i=0;i<noPatrons;i++){	    	
