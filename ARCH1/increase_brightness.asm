@@ -3,10 +3,8 @@
     AVG2:   .asciiz "Average pixel value of new image:"
     input_filename: .asciiz "C:/Users/3520/Desktop/sample_images/house_64_in_ascii_cr.ppm"
     output_filename: .asciiz "C:/Users/3520/Desktop/sample_images/output.ppm"
-    Header: .asciiz "P3\n#J\n64 64"
-    file:   .asciiz ""
-    int: .space 3
-    line: .space 16
+   Read_in: .space 50000
+   Write: .space
 .text
 .globl main
 
@@ -15,80 +13,47 @@ main:
      # Open input file
         li $v0, 13          # syscall code for open
         la $a0, input_filename
-        li $a1, 0           
+        li $a1, 0 
+        li $a2,0          
         syscall
         move $s0, $v0       # save file descriptor in $s0
 
-# Skip the first three lines
-#li $t0, 1           # Number of lines to skip
 
-skip_lines_loop:
-    # Read a line from the input file
-    li $v0, 14           # syscall code for read
-    move $a0, $s0        # input file descriptor
-    la $a1, line  # buffer to store the line
-    li $a2, 15     #read and skip first 15 lines
+
+    # open output file to be manually created by user
+    li $v0, 13
+    la $a0, file_out
+    li $a1, 1 # writing mode
+    li $a2, 0
+    syscall
+    move $s1, $v0 # Save file descriptor in $s1
+
+INPUT:
+     li $v0, 14
+    move $a0, $s6
+    la $a1, Read_in
+    li $a2, 50000
     syscall
 
 
-    #print check
-    li $v0, 4         # syscall code for print string
-    la $a0,line    # Load the address of the result string
-    syscall
 
-    # Check if we've skipped the desired number of characters
-    #bnez $t0, skip_lines_loop
-
-done_skip_lines:
-
-    move $s2,$zero
-
- # Read a line from the input file
-    li $v0, 14           # syscall code for read
-    move $a0, $s2        # input file descriptor
-    la $a1, int  # buffer to store the line
-    li $a2,  3   #read and skip first 15 char
-    syscall
-
-    la $t0,int
-    move $t1,$t0  #make t1 == str
-    move $s2,$zero #intializ a temp register
-    move $t6,$zero
+#intialising the buffers 
+la $s2, Read_in 
+la $s3, Write 
+la $s4, Write 
+li $t1, 0 # Counter
 
 
-loop:
-    lb $t2,($t1) # load byte into t2
-    beq $t2,10,Print
-    addi $t1,$t1,1 # move onto next character
-    sub $t2,$t2,48 #subtract 48 from t2 to give the actual value 
-    mul $s2,$s2,10
-    add $s2,$s2,$t2
-    move $t6,$s2
-    j loop
+#add the header into the write buffer
+HEADER:
+lb $t2,($s2)
+sb $t3,($s3)
 
+addi $s3,$s3,1
+addi $s2,$s2,1
 
-Print:
-     li $v0,4
-     la $a0,space
-     syscall
+beq $t1,10,newline
+j HEADER
 
-
-     li $v0,1
-     move $a0,$t6
-     syscall
-
-j done_skip_lines
-
-
-
-
-
- # Close input and output files
-        li $v0, 16          # syscall code for close
-        move $a0, $s0       # input file descriptor
-        syscall
-
-
-        # Exit
-        li $v0, 10          # syscall code for exit
-        syscall
+newline:
+ addi $t1,$t1,1
