@@ -1,6 +1,4 @@
 .data
-    AVG1:     .asciiz "Average pixel value of the original image:\n"
-    AVG2:   .asciiz "\nAverage pixel value of new image:\n"
     input_filename: .asciiz "C:/Users/3520/Desktop/sample_images/jet_64_in_ascii_crlf.ppm"
     output_filename: .asciiz "C:/Users/3520/Desktop/sample_images/outputg.ppm"
    Read_in: .space  100000
@@ -82,7 +80,7 @@ newline:
     li $t4, 0 # line
     li $t1, 0 # number of digits
     li  $t3,0 #i
-    li $$t5,0 # sum
+    li $t5,0 # sum
     li $t6, 0 # Line count
 
 String_to_int:
@@ -105,10 +103,13 @@ j String_to_int
 
 
 Line:
-addi $s0,$s0,1
+addi $s2,$s2,1
  addi $t3,$t3,1
  add $t5,$t5,$t4
+ li $t4,0
+
  beq $t3,3,AVG
+j String_to_int
 
  AVG:
 addi $t6,$t6,1
@@ -118,7 +119,7 @@ divu$t5,$t5,3
 mflo $t4
 
 blt $t4,100,ADD1
-addi $s3,$s3,1 # ne
+addi $s3,$s3,3 # ne
 
 
 li $t8,10
@@ -130,7 +131,7 @@ j INT_STRING
 ADD1:
 blt $t4,10,nADD
 
-addi $s3.$s3,1 
+addi $s3,$s3,2
 
 
 li $t8,10
@@ -140,7 +141,7 @@ j INT_STRING
 
 
 nADD:
-addi $s3.$s3,1
+addi $s3,$s3,1
 
 
 li $t8,10
@@ -151,10 +152,11 @@ j INT_STRING
 INT_STRING:
     beqz $t4, end    # If the integer is 0, conversion is done
     divu $t4, $t4, 10     
-    mfhi $t9             
-    addi $t9, $t9, 48     # Convert digit to ASCII character
-    sb $t9, -1($s3)       
+    mfhi $t3             
+    addi $t3, $t3, 48     # Convert digit to ASCII character
+    sb $t3, -1($s3)       
     addi $s3, $s3, -1       # Move the pointer backward    
+    addi $t1,$t1,1
 
     j INT_STRING
 
