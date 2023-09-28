@@ -209,7 +209,7 @@ close:
     move $a0, $s1       # output file descriptor
     syscall
 
-
+#calcualte the avearge
 AVG:
  
   li.d $f0, 1044480.0    

@@ -1,5 +1,5 @@
 .data
-    input_filename: .asciiz "C:/Users/3520/Desktop/sample_images/jet_64_in_ascii_crlf.ppm"
+    input_filename: .asciiz "C:/Users/3520/Desktop/sample_images/house_64_in_ascii_crlf.ppm"
     output_filename: .asciiz "C:/Users/3520/Desktop/sample_images/outputg.ppm"
    Read_in: .space  100000
    Write_OUT: .space 100000
