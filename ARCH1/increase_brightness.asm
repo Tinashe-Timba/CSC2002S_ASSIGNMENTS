@@ -77,7 +77,7 @@ beq $t2,10,Line
 beq $t2,0,WRITE
 #beq $t2,13,Line
 
-
+#STRING TO  INT conversion
 sub $t2,$t2,48
 mul $t4,$t4,10
 add $t4,$t4,$t2
@@ -88,13 +88,13 @@ addi $t1,$t1,1 #increase count
 
 j String_to_int
 
-
+#end of line
 Line:
  addi $t6,$t6,1
  beq $t6,12290,WRITE
 
  
-
+#pixel sum
  mtc1 $t4, $f0
 cvt.d.w $f0, $f0
 add.d $f6, $f6, $f0 # Sum for orignal pixels
@@ -186,7 +186,7 @@ j String_to_int
 
 
 
-
+#write the output to specified output file 
 
 WRITE:
 sb $t2,($s3)
@@ -212,7 +212,7 @@ close:
 #calcualte the avearge
 AVG:
  
-  li.d $f0, 1044480.0    
+  li.d $f0, 3133440.0    # 64*64*255*3
     div.d $f6, $f6, $f0
     div.d $f2, $f2, $f0
 
