@@ -1,3 +1,6 @@
+#TMBTIN004
+
+
 .data
     input_filename: .asciiz "C:/Users/3520/Desktop/sample_images/house_64_in_ascii_crlf.ppm"
     output_filename: .asciiz "C:/Users/3520/Desktop/sample_images/outputg.ppm"
@@ -84,7 +87,7 @@ newline:
     li $t6, 0 # Line count
 
 String_to_int:
-
+#convert the string to int 
 lb $t2,($s2)
 
 beq $t2,10,Line
@@ -111,9 +114,9 @@ addi $s2,$s2,1
  beq $t3,3,AVG
 j String_to_int
 
- AVG:
+ AVG:#calculate the avg pixel values
 addi $t6,$t6,1
-beq $t6,4097,WRITE
+beq $t6,4097,WRITE #write to file when done processing
 
 divu$t5,$t5,3
 mflo $t4
@@ -177,7 +180,7 @@ j String_to_int
 
 
 
-
+#write to output file
 WRITE:
 sb $t2,($s3)
 sub $s4,$s3,$s4

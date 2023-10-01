@@ -1,3 +1,4 @@
+#TMBTIN004
 .data
     AVG1:     .asciiz "Average pixel value of the original image:\n"
     AVG2:   .asciiz "\nAverage pixel value of new image:\n"

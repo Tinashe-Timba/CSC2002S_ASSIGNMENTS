@@ -1,0 +1,155 @@
+commit ef2bf505e050a555b8b89761616ad7dc01d7bc21
+Author: Tinashe-Timba <tmbtin004@myuct.ac.za>
+Date:   Sun Oct 1 10:09:48 2023 +0200
+
+    Fixed average issue
+
+commit 71e3827528a08db083e62613ed111b13b8fbb70f
+Author: Tinashe-Timba <tmbtin004@myuct.ac.za>
+Date:   Thu Sep 28 21:28:47 2023 +0200
+
+    Added a readme
+
+commit a26c183613b549e9c41248751199df8e975dbfb7
+Author: Tinashe-Timba <tmbtin004@myuct.ac.za>
+Date:   Sun Sep 24 16:44:50 2023 +0200
+
+    Greysacle complete
+
+commit a01d05a879987abbb89108ab9d4f3d1e82a99bd0
+Author: Tinashe-Timba <tmbtin004@myuct.ac.za>
+Date:   Sun Sep 24 15:33:31 2023 +0200
+
+    started greyscale
+
+commit 76b7991b5fc8962ecac007e2aa2cbeafb3e9f411
+Author: Tinashe-Timba <tmbtin004@myuct.ac.za>
+Date:   Sun Sep 24 15:06:05 2023 +0200
+
+    Q1 comlete
+
+commit c84ef4167318d062fc0b8ff3f3cacee48932de3e
+Author: Tinashe-Timba <tmbtin004@myuct.ac.za>
+Date:   Sun Sep 24 11:21:44 2023 +0200
+
+    FIXING ERRORS
+
+commit 381cbf65b352eff923349a166dd3b465623c5119
+Author: Tinashe-Timba <tmbtin004@myuct.ac.za>
+Date:   Sun Sep 24 11:05:45 2023 +0200
+
+    Increase brightness 1
+
+commit b41fcbfcad44fc10d999efcb2b9a7b1b4f826d05
+Author: Tinashe-Timba <tmbtin004@myuct.ac.za>
+Date:   Sun Aug 27 18:29:02 2023 +0200
+
+    last
+
+commit e8d215becb7beaaffa7e8d18ba8d841cf1569bc8
+Author: Tinashe-Timba <tmbtin004@myuct.ac.za>
+Date:   Sun Aug 27 18:26:05 2023 +0200
+
+    last changes
+
+commit feceb1036efa85009309cdae9e34f939b56dcb6f
+Author: Tinashe-Timba <tmbtin004@myuct.ac.za>
+Date:   Fri Aug 25 22:08:24 2023 +0200
+
+    update
+
+commit ff2ec763ffc98fafeae28ba4a187a621e26bf5f3
+Author: Tinashe-Timba <tmbtin004@myuct.ac.za>
+Date:   Tue Aug 22 21:15:51 2023 +0200
+
+    Addded README.md
+
+commit 5dacbda4ec2b3adc6e412ebb83806bbb1764d12f
+Author: Tinashe-Timba <tmbtin004@myuct.ac.za>
+Date:   Tue Aug 22 21:10:37 2023 +0200
+
+    commenting
+
+commit 7402d507b48917cd2c0182e250763d11f52856f1
+Author: Tinashe-Timba <tmbtin004@myuct.ac.za>
+Date:   Tue Aug 22 20:49:29 2023 +0200
+
+    fixed pause locking
+
+commit 866a3a4ec44342f4517d06cf7862806634f5ae57
+Author: Tinashe-Timba <tmbtin004@myuct.ac.za>
+Date:   Mon Aug 21 17:24:24 2023 +0200
+
+    fixed start and pause
+
+commit bb6280fa5333bb40d1200ddd6c328aef3a8607a5
+Author: Tinashe-Timba <tmbtin004@myuct.ac.za>
+Date:   Sun Aug 20 19:23:18 2023 +0200
+
+    makefile done
+
+commit 6f51e7f75a7ffaaa5f4e119adf219ad43003416f
+Author: Tinashe-Timba <tmbtin004@myuct.ac.za>
+Date:   Tue Aug 15 20:05:19 2023 +0200
+
+    PCP2
+
+commit 7f7735788d346921a4e811f6a89c74f6b2a3ef49
+Author: Tinashe-Timba <tmbtin004@myuct.ac.za>
+Date:   Sun Aug 13 21:07:06 2023 +0200
+
+    final
+
+commit 21b3c9ce34cc0d20845a17ac55fc62433022a3a3
+Author: Tinashe-Timba <tmbtin004@myuct.ac.za>
+Date:   Thu Aug 10 21:18:47 2023 +0200
+
+    added readme
+
+commit 315405a41a3f1d9bbd661ac37a582d91fd8aab15
+Author: Tinashe-Timba <tmbtin004@myuct.ac.za>
+Date:   Wed Aug 9 14:34:47 2023 +0200
+
+    better ouput
+
+commit 67e9fb3cca5a70849202e6dc6ec5629ee6525f47
+Author: Tinashe-Timba <tmbtin004@myuct.ac.za>
+Date:   Wed Aug 9 13:23:26 2023 +0200
+
+    changed makefile
+
+commit 19b0094cb1690d5a6a99cf599af9251e22349385
+Author: Tinashe-Timba <tmbtin004@myuct.ac.za>
+Date:   Wed Aug 9 12:59:35 2023 +0200
+
+    Ready for server testing
+
+commit 34545194c549a556e68368db1f50612a58db927d
+Author: Tinashe-Timba <tmbtin004@myuct.ac.za>
+Date:   Tue Aug 8 14:29:30 2023 +0200
+
+    fixed compute loop
+
+commit c83b77943800d169be35c4d1db69eff6f536255b
+Author: Tinashe-Timba <tmbtin004@myuct.ac.za>
+Date:   Tue Aug 8 12:23:16 2023 +0200
+
+    Modified makefile
+
+commit 32941e01ecad7cfd787ea76ac999a49a054e1bf5
+Author: Tinashe-Timba <tmbtin004@myuct.ac.za>
+Date:   Sun Aug 6 20:40:08 2023 +0200
+
+    edited makefile and new cutoff
+
+commit 763cc27d04e1b74f3c916cb6941c68e2c8d01e82
+Author: Tinashe-Timba <tmbtin004@myuct.ac.za>
+Date:   Sun Aug 6 12:29:44 2023 +0200
+
+    edited makefile
+
+commit c99c1a7d847cd9197c537b0e2ce6107dfb2eab84
+Author: Tinashe-Timba <tmbtin004@myuct.ac.za>
+Date:   Sun Aug 6 12:11:45 2023 +0200
+
+    Added a prallel version and a makefile
